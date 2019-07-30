@@ -22,7 +22,7 @@ public enum LocationType: Int, Codable {
    }
 
 public struct Stop: Codable {
-    public init(id: String, code: String?, name: String, description: String, latitude: Double, longitude: Double, zoneId: String?, url: URL?, locationType: LocationType?, parentStation: String?, stopTimezone: String?, wheelchairBoarding: WheelchairBoarding?, levelId: String?, platformCode: String?) {
+    public init(id: String, code: String?, name: String, description: String?, latitude: Double, longitude: Double, zoneId: String?, url: URL?, locationType: LocationType?, parentStation: String?, stopTimezone: String?, wheelchairBoarding: WheelchairBoarding?, levelId: String?, platformCode: String?) {
         self.id = id
         self.code = code
         self.name = name
@@ -43,7 +43,7 @@ public struct Stop: Codable {
     public let id: String
     public let code: String?
     public let name: String
-    public let description: String
+    public let description: String?
     public let latitude: Double
     public let longitude: Double
     public let zoneId: String?
