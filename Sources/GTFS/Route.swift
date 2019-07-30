@@ -20,7 +20,7 @@ public enum RouteType: Int, Codable {
     }
 
 public struct Route: Codable {
-    public init(id: String, agencyId: String?, shortName: String, longName: String, description: String?, type: RouteType, url: String?, color: String?, textColor: String?, sortOrder: Int?) {
+    public init(id: String, agencyId: String?, shortName: String, longName: String, description: String?, type: RouteType, url: URL?, color: String?, textColor: String?, sortOrder: Int?) {
         self.id = id
         self.agencyId = agencyId
         self.shortName = shortName
@@ -40,7 +40,7 @@ public struct Route: Codable {
     public let longName: String
     public let description: String?
     public let type: RouteType
-    public let url: String?
+    public let url: URL?
     public let color: String?
     public let textColor: String?
     public let sortOrder: Int?
