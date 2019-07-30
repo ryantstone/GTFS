@@ -14,7 +14,7 @@ public enum Timepoint: Int, Codable {
 
 public struct StopTime: Codable {
     
-    public init(tripId: String, arrivalTime: Int?, departureTime: Int?, stopId: String, stopSequence: Int, stopHeadsign: String?, pickupType: StopTime.Boarding?, dropOffType: StopTime.Boarding?, shapeDistTraveled: Double?, timepoint: Timepoint?) {
+    public init(tripId: String, arrivalTime: String?, departureTime: String?, stopId: String, stopSequence: Int, stopHeadsign: String?, pickupType: StopTime.Boarding?, dropOffType: StopTime.Boarding?, shapeDistTraveled: Double?, timepoint: Timepoint?) {
         self.tripId = tripId
         self.arrivalTime = arrivalTime
         self.departureTime = departureTime
@@ -36,8 +36,8 @@ public struct StopTime: Codable {
     }
     
     public let tripId: String
-    public let arrivalTime: Int?
-    public let departureTime: Int?
+    public let arrivalTime: String?
+    public let departureTime: String?
     public let stopId: String
     public let stopSequence: Int
     public let stopHeadsign: String?
