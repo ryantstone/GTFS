@@ -7,19 +7,19 @@
 
 import Foundation
 
-public enum RouteType: Int, Codable {
+public enum RouteType: String, Codable, Equatable {
         // Tram, streetcar, or light rail
-        case lightRail = 0
-        case subway
-        case rail
-        case bus
-        case ferry
-        case cabelCar
-        case gondola
-        case funicular
+        case lightRail = "0"
+        case subway = "1"
+        case rail = "2"
+        case bus = "3"
+        case ferry = "4"
+        case cabelCar = "5"
+        case gondola = "6"
+        case funicular = "7"
     }
 
-public struct Route: Codable {
+public struct Route: Codable, Equatable {
     public init(id: String, agencyId: String?, shortName: String, longName: String, description: String?, type: RouteType, url: URL?, color: String?, textColor: String?, sortOrder: Int?) {
         self.id = id
         self.agencyId = agencyId
@@ -58,3 +58,11 @@ public struct Route: Codable {
             case sortOrder = "route_sort_order"
     }
 }
+
+//extension Route: Decodable {
+//    public init(from decoder: Decoder) throws {
+//        let keys = decoder.container(keyedBy: CodingKeys.self)
+//
+//        self.type = try keys.decode(Int.self, forKey: .type)
+//    }
+//}
