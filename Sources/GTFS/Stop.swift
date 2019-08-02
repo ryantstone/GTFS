@@ -72,3 +72,25 @@ public struct Stop: Codable {
             case platformCode = "platform_code"
         }
 }
+
+extension Stop {
+    public init(from decoder: Decoder) throws {
+        let keys = decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try keys.decode(String.self, forKey: .id)
+        self.code = try? keys.decode(String.self, forKey: .code)
+        self.name = try keys.decode(String.self, forKey: .name)
+        self.description = try? keys.decode(String.self, forKey: .description)
+       
+        latitude: Double
+        longitude: Double
+        zoneId: String?
+        url: URL?
+        locationType: LocationType?
+        parentStation: String?
+        stopTimezone: String?
+        wheelchairBoarding: WheelchairBoarding?
+        levelId: String?
+        platformCode: String?
+    }
+}

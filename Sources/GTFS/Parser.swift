@@ -5,7 +5,7 @@ class Parser {
 
     private let decoder = JSONDecoder()
 
-    func decode<T: Codable>(data: String, type: T.Type) throws -> [T] {
+    func decodeFile<T: Codable>(data: String, type: T.Type) throws -> [T] {
         let parsedDict  = try parseCSV(data)
         let json        = try JSONSerialization.data(withJSONObject: parsedDict, options: [])
         

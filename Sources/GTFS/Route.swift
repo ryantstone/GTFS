@@ -74,11 +74,11 @@ extension Route {
 
         guard
             let typeString = try? keys.decode(Int.self, forKey: .type),
-            let typeInt = Int(typeString),
-            let routeType = RouteType(rawValue: typeInt) else {
+            let routeType = RouteType(rawValue: Int(typeString)) else {
 
             throw DecodingError.typeMismatch(Int.self, DecodingError.Context.init(codingPath: [CodingKeys.type], debugDescription: "Failed to convert type to Int"))
         }
+        
         guard let urlString = try? keys.decode(String.self, forKey: .url) else {
             throw DecodingError.typeMismatch(URL.self, DecodingError.Context.init(codingPath: [CodingKeys.url], debugDescription: "Failed to convert url to native type"))
         }

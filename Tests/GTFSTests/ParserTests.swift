@@ -18,7 +18,7 @@ class ParserTests: XCTestCase {
                                   textColor: nil,
                                   sortOrder: nil)
 
-        let routes = try! parser.decode(data: Mocks.routesFile, type: Route.self)
+        let routes = try! parser.decodeFile(data: Mocks.routesFile, type: Route.self)
         XCTAssertEqual(expectedRoute, routes.first!)
     }
 }

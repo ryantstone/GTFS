@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Calendar: Codable {
+public struct GTFSCalendar: Encodable, Equatable {
     
     public init(serviceId: String, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, sunday: Bool, startDate: Date, endDate: Date) {
         self.serviceId = serviceId
@@ -49,3 +49,48 @@ public struct Calendar: Codable {
     }
 }
 
+extension GTFSCalendar: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.serviceId  = try container.decode(String.self, forKey: .serviceId)
+        self.monday     = (try container.decode(String.self, forKey: .monday)) == "1"
+        self.tuesday    = (try container.decode(String.self, forKey: .tuesday)) == "1"
+        self.wednesday  = (try container.decode(String.self, forKey: .wednesday)) == "1"
+        self.thursday   = (try container.decode(String.self, forKey: .thursday)) == "1"
+        self.friday     = (try container.decode(String.self, forKey: .friday)) == "1"
+        self.saturday   = (try container.decode(String.self, forKey: .saturday)) == "1"
+        self.sunday     = (try container.decode(String.self, forKey: .sunday)) == "1"
+        
+        let formatter: DateFormatter = {
+           let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMdd"
+            return formatter
+        }()
+
+        guard
+            let endString   = try? container.decode(String.self, forKey: .endDate),
+            let end         = formatter.date(from: endString) else {
+                
+                throw DecodingError.typeMismatch(
+                    URL.self,
+                    DecodingError.Context(codingPath: [CodingKeys.endDate],
+                                          debugDescription: "Failed to convert end date")
+                )
+        }
+
+        guard
+            let startString = try? container.decode(String.self, forKey: .startDate),
+            let start       = formatter.date(from: startString) else {
+        
+                throw DecodingError.typeMismatch(
+                    URL.self,
+                    DecodingError.Context(codingPath: [CodingKeys.startDate],
+                                          debugDescription: "Failed to convert start date")
+                )
+        }
+        
+        self.startDate = start
+        self.endDate = end
+    }
+}

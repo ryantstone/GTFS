@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Agency: Codable {
+public struct Agency: Codable, Equatable {
     
     public let id: String
     public let name: String
@@ -39,5 +39,4 @@ public struct Agency: Codable {
             self.email = email
             self.fareUrl = fareUrl
     }
-        
 }
