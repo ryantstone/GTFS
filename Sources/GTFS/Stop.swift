@@ -7,13 +7,13 @@
 
 import Foundation
 
-public enum WheelchairBoarding: Int, Codable {
+public enum WheelchairBoarding: Int, Codable, Equatable {
     case noInformation = 0
     case someVehicles
     case notPossible
 }
 
-public enum LocationType: Int, Codable {
+public enum LocationType: Int, Codable, Equatable {
        case stopOrPlatform = 0
        case station = 1
        case stationEntracneOrExit = 2
@@ -21,7 +21,7 @@ public enum LocationType: Int, Codable {
        case boardingArea = 4
    }
 
-public struct Stop: Codable {
+public struct Stop: Codable, Equatable {
     public init(id: String, code: String?, name: String, description: String?, latitude: Double, longitude: Double, zoneId: String?, url: URL?, locationType: LocationType?, parentStation: String?, stopTimezone: String?, wheelchairBoarding: WheelchairBoarding?, levelId: String?, platformCode: String?) {
         self.id = id
         self.code = code
@@ -75,22 +75,60 @@ public struct Stop: Codable {
 
 extension Stop {
     public init(from decoder: Decoder) throws {
-        let keys = decoder.container(keyedBy: CodingKeys.self)
+        let keys = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.id = try keys.decode(String.self, forKey: .id)
-        self.code = try? keys.decode(String.self, forKey: .code)
-        self.name = try keys.decode(String.self, forKey: .name)
-        self.description = try? keys.decode(String.self, forKey: .description)
-       
-        latitude: Double
-        longitude: Double
-        zoneId: String?
-        url: URL?
-        locationType: LocationType?
-        parentStation: String?
-        stopTimezone: String?
-        wheelchairBoarding: WheelchairBoarding?
-        levelId: String?
-        platformCode: String?
+        self.id             = try keys.decode(String.self, forKey: .id)
+        self.code           = try? keys.decode(String.self, forKey: .code)
+        self.name           = try keys.decode(String.self, forKey: .name)
+        self.description    = try? keys.decode(String.self, forKey: .description)
+        self.zoneId         = try? keys.decode(String.self, forKey: .zoneId)
+        self.parentStation  = try? keys.decode(String.self, forKey: .parentStation) // Maybe this should in someway connect to a parent station?
+        self.stopTimezone   = try? keys.decode(String.self, forKey: .stopTimezone) // Maybe convert to a native type?
+        self.levelId        = try? keys.decode(String.self, forKey: .levelId)
+        self.platformCode   = try? keys.decode(String.self, forKey: .platformCode)
+
+        guard
+            let latitudeText = try? keys.decode(String.self, forKey: .latitude),
+            let latitude = Double(latitudeText) else {
+           
+                throw DecodingError.typeMismatch(
+                    Double.self,
+                    DecodingError.Context(
+                        codingPath: [CodingKeys.latitude],
+                        debugDescription: "Failed to convert latitude"
+                    )
+                )
+        }
+        
+        
+        guard
+            let longitudeText   = try? keys.decode(String.self, forKey: .longitude),
+            let longitude = Double(longitudeText) else {
+                
+                throw DecodingError.typeMismatch(
+                    Double.self,
+                    DecodingError.Context(
+                        codingPath: [CodingKeys.longitude],
+                        debugDescription: "Failed to convert longitude"
+                    )
+                )
+        }
+    
+        if let urlText = try? keys.decode(String.self, forKey: .url) {
+            self.url = URL(string: urlText)
+        }
+
+        if let locationType = try? keys.decode(String.self, forKey: .locationType),
+            let locationInt = Int(locationType) {
+            self.locationType = LocationType(rawValue: locationInt)
+        }
+        
+        if let wheelchairText = try? keys.decode(String.self, forKey: .wheelchairBoarding),
+            let wheelchairBoarding = Int(wheelchairText) {
+            self.wheelchairBoarding = WheelchairBoarding(rawValue: wheelchairBoarding)
+        }
+        
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }
