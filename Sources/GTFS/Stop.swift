@@ -44,8 +44,8 @@ public struct Stop: Codable, Equatable {
     public let code: String?
     public let name: String
     public let description: String?
-    public let latitude: Double
-    public let longitude: Double
+    public let latitude: Double?
+    public let longitude: Double?
     public let zoneId: String?
     public let url: URL?
     public let locationType: LocationType?
@@ -58,7 +58,7 @@ public struct Stop: Codable, Equatable {
     public enum CodingKeys: String, CodingKey {
             case id = "stop_id"
             case code = "stop_code"
-            case name = "agency_name"
+            case name = "stop_name"
             case description = "stop_desc"
             case latitude = "stop_lat"
             case longitude = "stop_lon"
@@ -82,53 +82,51 @@ extension Stop {
         self.name           = try keys.decode(String.self, forKey: .name)
         self.description    = try? keys.decode(String.self, forKey: .description)
         self.zoneId         = try? keys.decode(String.self, forKey: .zoneId)
-        self.parentStation  = try? keys.decode(String.self, forKey: .parentStation) // Maybe this should in someway connect to a parent station?
-        self.stopTimezone   = try? keys.decode(String.self, forKey: .stopTimezone) // Maybe convert to a native type?
-        self.levelId        = try? keys.decode(String.self, forKey: .levelId)
         self.platformCode   = try? keys.decode(String.self, forKey: .platformCode)
+        self.stopTimezone   = try? keys.decode(String.self, forKey: .stopTimezone) // Maybe convert to a native type?
 
-        guard
-            let latitudeText = try? keys.decode(String.self, forKey: .latitude),
-            let latitude = Double(latitudeText) else {
-           
-                throw DecodingError.typeMismatch(
-                    Double.self,
-                    DecodingError.Context(
-                        codingPath: [CodingKeys.latitude],
-                        debugDescription: "Failed to convert latitude"
-                    )
-                )
+        let parentStation   = try? keys.decode(String.self, forKey: .parentStation) // Maybe this should in someway connect to a parent station?
+        self.parentStation = (parentStation?.isEmpty ?? true) ? nil : parentStation
+
+        let levelId = try? keys.decode(String.self, forKey: .levelId)
+        self.levelId        = (levelId?.isEmpty ?? true) ? nil : levelId
+
+        let latitudeResult = Result<String, Error> { try keys.decode(String.self, forKey: .latitude) }
+        switch latitudeResult {
+        case .success(let latitude):
+            self.latitude = Double(latitude)
+        case .failure(_):
+            self.latitude = nil
         }
-        
-        
-        guard
-            let longitudeText   = try? keys.decode(String.self, forKey: .longitude),
-            let longitude = Double(longitudeText) else {
-                
-                throw DecodingError.typeMismatch(
-                    Double.self,
-                    DecodingError.Context(
-                        codingPath: [CodingKeys.longitude],
-                        debugDescription: "Failed to convert longitude"
-                    )
-                )
+
+        let longitudeResult = Result<String, Error> { try keys.decode(String.self, forKey: .longitude) }
+        switch longitudeResult {
+        case .success(let longitude):
+            self.longitude = Double(longitude)
+        case .failure(_):
+            self.longitude = nil
         }
-    
-        if let urlText = try? keys.decode(String.self, forKey: .url) {
-            self.url = URL(string: urlText)
+
+        let urlResult = Result<String, Error> { try keys.decode(String.self, forKey: .url) }
+        switch urlResult {
+        case .success(let url):
+            self.url = URL(string: url)
+        case .failure(_):
+            self.url = nil
         }
 
         if let locationType = try? keys.decode(String.self, forKey: .locationType),
             let locationInt = Int(locationType) {
             self.locationType = LocationType(rawValue: locationInt)
+        } else {
+            self.locationType = nil
         }
         
         if let wheelchairText = try? keys.decode(String.self, forKey: .wheelchairBoarding),
             let wheelchairBoarding = Int(wheelchairText) {
             self.wheelchairBoarding = WheelchairBoarding(rawValue: wheelchairBoarding)
+        } else {
+            self.wheelchairBoarding = nil
         }
-        
-        self.latitude = latitude
-        self.longitude = longitude
     }
 }

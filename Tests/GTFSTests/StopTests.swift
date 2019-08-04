@@ -10,7 +10,7 @@ class StopTests: XCTestCase {
     func test_stopParsing() {
         let expectedResult = Stop(id: "F12",
                                   code: nil,
-                                  name: "Av/53",
+                                  name: "5 Av/53 St",
                                   description: nil,
                                   latitude: 40.760167,
                                   longitude: -73.975224,
@@ -22,7 +22,7 @@ class StopTests: XCTestCase {
                                   wheelchairBoarding: nil,
                                   levelId: nil,
                                   platformCode: nil)
-        
+
         let result = try? Parser().decodeFile(data: StopMocks.CSV, type: Stop.self)
         
         XCTAssertEqual(expectedResult, result!.first!)

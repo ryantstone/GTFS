@@ -36,8 +36,8 @@ public struct Route: Codable, Equatable {
     
     public let id: String
     public let agencyId: String?
-    public let shortName: String
-    public let longName: String
+    public let shortName: String?
+    public let longName: String?
     public let description: String?
     public let type: RouteType
     public let url: URL?
@@ -73,8 +73,9 @@ extension Route {
         self.sortOrder      = try? keys.decode(Int.self, forKey: .sortOrder)
 
         guard
-            let typeString = try? keys.decode(Int.self, forKey: .type),
-            let routeType = RouteType(rawValue: Int(typeString)) else {
+            let typeString  = try? keys.decode(String.self, forKey: .type),
+            let typeInt     = Int(typeString),
+            let routeType   = RouteType(rawValue: typeInt) else {
 
             throw DecodingError.typeMismatch(Int.self, DecodingError.Context.init(codingPath: [CodingKeys.type], debugDescription: "Failed to convert type to Int"))
         }
@@ -85,5 +86,7 @@ extension Route {
 
         self.type   = routeType
         self.url    = URL(string: urlString)
+
+        // Add validation that long || short must be present
     }
 }

@@ -10,12 +10,8 @@ import XCTest
 
 class CalendarTests: XCTestCase {
     
-    lazy var formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        return formatter
-    }()
-    
+    lazy var formatter: DateFormatter = DateHelpers.formatter
+
     override func setUp() { }
     override func tearDown() { }
     
