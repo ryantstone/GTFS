@@ -12,7 +12,7 @@ public enum Timepoint: Int, Codable {
     case exact
 }
 
-public struct StopTime: Codable {
+public struct StopTime: Codable, Equatable {
     
     public init(tripId: String, arrivalTime: String?, departureTime: String?, stopId: String, stopSequence: Int, stopHeadsign: String?, pickupType: StopTime.Boarding?, dropOffType: StopTime.Boarding?, shapeDistTraveled: Double?, timepoint: Timepoint?) {
         self.tripId = tripId
@@ -60,6 +60,61 @@ public struct StopTime: Codable {
     }
 }
 
+extension StopTime {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.tripId         = try container.decode(String.self, forKey: .tripId)
+        self.arrivalTime    = try? container.decode(String.self, forKey: .arrivalTime)
+        self.departureTime  = try? container.decode(String.self, forKey: .departureTime)
+        self.stopId         = try container.decode(String.self, forKey: .stopId)
+        
+        let stopHeadSign = try container.decode(String.self, forKey: .stopHeadsign)
+        self.stopHeadsign = stopHeadSign.isEmpty ? nil : stopHeadSign
+        
+        guard
+            let stopSequenceText   = try? container.decode(String.self, forKey: .stopSequence),
+            let stopSequenceInt     = Int(stopSequenceText) else {
+                
+                throw DecodingError.typeMismatch(
+                    Int.self,
+                    DecodingError.Context(
+                        codingPath: [CodingKeys.stopSequence],
+                        debugDescription: "Failed to convert stopSequence")
+                )
+        }
+        self.stopSequence = stopSequenceInt
+
+        if let pickupTypeText = try? container.decode(String.self, forKey: .pickupType),
+           let pickupTypeInt  = Int(pickupTypeText) {
+            self.pickupType = Boarding(rawValue: pickupTypeInt)
+        } else {
+            self.pickupType = nil
+        }
+        
+        if let dropOffTypeText = try? container.decode(String.self, forKey: .dropOffType),
+           let dropOffTypeInt  = Int(dropOffTypeText) {
+            self.dropOffType = Boarding(rawValue: dropOffTypeInt)
+        } else {
+            self.dropOffType = nil
+        }
+        
+        if let shapeDistanceText = try? container.decode(String.self, forKey: .shapeDistTraveled),
+           let shapeDistanceDouble = Double(shapeDistanceText) {
+            self.shapeDistTraveled = shapeDistanceDouble
+        } else {
+            self.shapeDistTraveled = nil
+        }
+        
+        if let timePointText = try? container.decode(String.self, forKey: .timepoint),
+           let timePointInt = Int(timePointText),
+            let timePoint = Timepoint(rawValue: timePointInt) {
+            self.timepoint = timePoint
+        } else {
+            self.timepoint = nil
+        }
+    }
+}
 
 // trip_id                  (Required)
 // arrival_time             (Optional) - Actually required but can be empty

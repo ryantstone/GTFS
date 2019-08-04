@@ -18,13 +18,13 @@ class ParserTests: XCTestCase {
                                   textColor: nil,
                                   sortOrder: nil)
 
-        let routes = try! parser.decodeFile(data: Mocks.routesFile, type: Route.self)
+        let routes = try! parser.decodeFile(data: RoutesMock.CSV, type: Route.self)
         XCTAssertEqual(expectedRoute, routes.first!)
     }
 }
 
-struct Mocks {
-    static let routesFile = """
+struct RoutesMock {
+    static let CSV = """
 route_id,route_short_name,route_long_name,route_type,route_url,route_color
 SB,TRSB,Tri-Rail,2,http://www.tri-rail.com/,006c86
 NB,TRNB,Tri-Rail,2,http://www.tri-rail.com/,006c86

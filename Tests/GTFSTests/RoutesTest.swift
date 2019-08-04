@@ -1,22 +1,23 @@
 import XCTest
+@testable import GTFS
 
 class RoutesTest: XCTestCase {
     override func setUp() {    }
-
-    override func tearDown() {
-    
-    }
+    override func tearDown() { }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let expectedRoute = Route(id: "SB",
+                                  agencyId: nil,
+                                  shortName: "TRSB",
+                                  longName: "Tri-Rail",
+                                  description: nil,
+                                  type: .rail,
+                                  url: URL(string: "http://www.tri-rail.com/")!,
+                                  color: "006c86",
+                                  textColor: nil,
+                                  sortOrder: nil)
+        
+        let routes = try! Parser().decodeFile(data: RoutesMock.CSV, type: Route.self)
+        XCTAssertEqual(expectedRoute, routes.first!)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
