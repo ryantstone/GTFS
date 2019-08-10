@@ -1,0 +1,8 @@
+fare_id,price,currency_type,payment_method,transfers
+OWAY1Z,2.50,USD,1,0
+OWAY2Z,3.75,USD,1,0
+OWAY3Z,5.00,USD,1,0
+OWAY4Z,5.65,USD,1,0
+OWAY5Z,6.25,USD,1,0
+OWAY6Z,6.90,USD,1,0
+
