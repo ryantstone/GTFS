@@ -1,7 +1,7 @@
 import Foundation
 import SwiftCSV
 
-class Parser {
+public class Parser {
 
     private let decoder = JSONDecoder()
 
