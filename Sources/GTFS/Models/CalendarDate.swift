@@ -12,7 +12,7 @@ public enum ExceptionType: Int, Codable {
     case removed = 2
 }
 
-public struct CalendarDate: Codable, Equatable {
+public struct CalendarDate: Codable, Equatable, Hashable {
     public init(serviceId: String, date: Date, exceptionType: ExceptionType) {
         self.serviceId = serviceId
         self.date = date

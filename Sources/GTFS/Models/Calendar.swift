@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GTFSCalendar: Encodable, Equatable {
+public struct GTFSCalendar: Encodable, Equatable, Hashable {
     
     public init(serviceId: String, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, sunday: Bool, startDate: Date, endDate: Date) {
         self.serviceId = serviceId

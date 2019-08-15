@@ -1,5 +1,5 @@
 import Foundation
-import SwiftCSV
+import CSV
 
 public class Parser {
 
@@ -8,13 +8,19 @@ public class Parser {
     public init() {}
     
     public func decodeFile<T: Codable>(data: String, type: T.Type) throws -> [T] {
-        let parsedDict  = try parseCSV(data)
-        let json        = try JSONSerialization.data(withJSONObject: parsedDict, options: [])
+//        let parsedDict  = try parseCSV(data)
+//        let json        = try JSONSerialization.data(withJSONObject: parsedDict, options: [])
+//
+//        return try decoder.decode([T].self, from: json)
         
-        return try decoder.decode([T].self, from: json)
-    }
-
-    private func parseCSV(_ data: String) throws -> [[String: String]]{
-        return try CSV(string: data).namedRows
+        var rows = [T]()
+        let reader = try CSVReader(string: data, hasHeaderRow: true)
+        let decoder = CSVRowDecoder()
+        while reader.next() != nil {
+            guard let row = try? decoder.decode(T.self, from: reader) else { continue }
+            rows.append(row)
+        }
+        
+        return rows
     }
 }

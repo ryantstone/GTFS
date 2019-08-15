@@ -13,7 +13,7 @@ public enum BikesAllowed: Int, Codable {
     case noBikes
 }
 
-public struct Trip: Codable {
+public struct Trip: Codable, Hashable {
     
     public init(routeId: String, serviceId: String, id: String, headsign: String?, shortName: String?, direction: Trip.Direction?, blockId: String?, shapeId: String?, wheelchairAccessible: WheelchairBoarding?, bikesAllowed: BikesAllowed?) {
         self.routeId = routeId
@@ -44,6 +44,13 @@ public struct Trip: Codable {
     public let shapeId: String?
     public let wheelchairAccessible: WheelchairBoarding?
     public let bikesAllowed: BikesAllowed?
+    public var route: Route? = nil
+    public var stopTimes = Set<StopTime>()
+    public var calendar: GTFSCalendar?
+    public var shapes = [Shape]()
+    // implement frequency
+    // implement service
+    // implement shape
     
     public enum CodingKeys: String, CodingKey {
             case routeId = "route_id"
@@ -72,42 +79,29 @@ extension Trip {
         self.blockId    = try? container.decode(String.self, forKey: .blockId)
         self.shapeId    = try? container.decode(String.self, forKey: .shapeId)
 
-        guard
-            let directionText = try? container.decode(String.self, forKey: .direction),
-            let directionInt = Int(directionText),
-            let direction = Direction(rawValue: directionInt) else {
-
-                throw DecodingError.typeMismatch(
-                    Int.self,
-                    DecodingError.Context(codingPath: [CodingKeys.direction],
-                                          debugDescription: "Failed to convert direction")
-                )
+       if let directionText = try? container.decode(String.self, forKey: .direction),
+          let directionInt = Int(directionText),
+          let direction = Direction(rawValue: directionInt) {
+            self.direction = direction
+        } else {
+            self.direction = nil
         }
+        
 
-        guard
-            let wheelchairText = try? container.decode(String.self, forKey: .wheelchairAccessible),
+        if let wheelchairText = try? container.decode(String.self, forKey: .wheelchairAccessible),
             let wheelchairInt = Int(wheelchairText),
-            let wheelchair = WheelchairBoarding(rawValue: wheelchairInt) else {
-                throw DecodingError.typeMismatch(
-                    Int.self,
-                    DecodingError.Context(codingPath: [CodingKeys.wheelchairAccessible],
-                                          debugDescription: "failed to convert wheelchair accessible")
-                )
+            let wheelchair = WheelchairBoarding(rawValue: wheelchairInt) {
+            self.wheelchairAccessible = wheelchair
+        } else {
+            self.wheelchairAccessible = nil
         }
-
-        guard
-            let bikesAllowedText = try? container.decode(String.self, forKey: .bikesAllowed),
+        
+        if let bikesAllowedText = try? container.decode(String.self, forKey: .bikesAllowed),
             let bikesAllowedInt = Int(bikesAllowedText),
-            let bikesAllowed = BikesAllowed(rawValue: bikesAllowedInt) else {
-                throw DecodingError.typeMismatch(
-                    Int.self,
-                    DecodingError.Context(codingPath: [CodingKeys.bikesAllowed],
-                                          debugDescription: "failed to convert bikes allowed")
-                )
+            let bikesAllowed = BikesAllowed(rawValue: bikesAllowedInt) {
+            self.bikesAllowed = bikesAllowed
+        } else {
+            self.bikesAllowed = nil
         }
-
-        self.bikesAllowed = bikesAllowed
-        self.wheelchairAccessible = wheelchair
-        self.direction = direction
     }
 }

@@ -19,7 +19,7 @@ public enum RouteType: Int, Codable, Equatable {
         case funicular
     }
 
-public struct Route: Codable, Equatable {
+public struct Route: Codable, Equatable, Hashable {
     public init(id: String, agencyId: String?, shortName: String, longName: String, description: String?, type: RouteType, url: URL?, color: String?, textColor: String?, sortOrder: Int?) {
         self.id = id
         self.agencyId = agencyId

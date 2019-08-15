@@ -12,7 +12,7 @@ public enum Timepoint: Int, Codable {
     case exact
 }
 
-public struct StopTime: Codable, Equatable {
+public struct StopTime: Codable, Equatable, Hashable {
     
     public init(tripId: String, arrivalTime: String?, departureTime: String?, stopId: String, stopSequence: Int, stopHeadsign: String?, pickupType: StopTime.Boarding?, dropOffType: StopTime.Boarding?, shapeDistTraveled: Double?, timepoint: Timepoint?) {
         self.tripId = tripId

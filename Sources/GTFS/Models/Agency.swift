@@ -9,7 +9,7 @@ import Foundation
 
 public struct Agency: Codable, Equatable {
     
-    public let id: String
+    public let id: String?
     public let name: String
     public let url: URL
     public let timezone: String
@@ -38,5 +38,30 @@ public struct Agency: Codable, Equatable {
             self.phone = phone
             self.email = email
             self.fareUrl = fareUrl
+    }
+}
+
+extension Agency {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try? container.decode(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        let urlText = try container.decode(String.self, forKey:  .url)
+        self.url = URL(string: urlText)!
+        
+        self.timezone = try container.decode(String.self, forKey: .timezone)
+        self.language = try? container.decode(String.self, forKey: .language)
+        self.phone = try? container.decode(String.self, forKey: .phone)
+        
+        if let fareUrlText = try? container.decode(String.self, forKey: .fareUrl),
+            let url = URL(string: fareUrlText) {
+            
+            self.fareUrl = url
+        } else {
+            self.fareUrl = nil
+        }
+        
+        self.email = try? container.decode(String.self, forKey: .email)
     }
 }

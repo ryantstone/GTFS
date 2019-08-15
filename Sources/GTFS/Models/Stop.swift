@@ -21,7 +21,7 @@ public enum LocationType: Int, Codable, Equatable {
        case boardingArea = 4
    }
 
-public struct Stop: Codable, Equatable {
+public struct Stop: Codable, Equatable, Hashable {
     public init(id: String, code: String?, name: String, description: String?, latitude: Double, longitude: Double, zoneId: String?, url: URL?, locationType: LocationType?, parentStation: String?, stopTimezone: String?, wheelchairBoarding: WheelchairBoarding?, levelId: String?, platformCode: String?) {
         self.id = id
         self.code = code
