@@ -69,9 +69,8 @@ extension StopTime {
         self.departureTime  = try? container.decode(String.self, forKey: .departureTime)
         self.stopId         = try container.decode(String.self, forKey: .stopId)
         
-        let stopHeadSign = try container.decode(String.self, forKey: .stopHeadsign)
-        self.stopHeadsign = stopHeadSign.isEmpty ? nil : stopHeadSign
-        
+        self.stopHeadsign = try? container.decode(String.self, forKey: .stopHeadsign)
+
         guard
             let stopSequenceText   = try? container.decode(String.self, forKey: .stopSequence),
             let stopSequenceInt     = Int(stopSequenceText) else {

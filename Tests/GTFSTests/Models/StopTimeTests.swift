@@ -30,7 +30,7 @@ class StopTimeTests: XCTestCase {
         
         do {
             let result = try Parser().decodeFile(data: StopTimeMocks.CSV, type: StopTime.self)
-            XCTAssertEqual(expectedResult, result.first!)
+            XCTAssertEqual(expectedResult, result.first)
         } catch {
             XCTFail("\(error.localizedDescription)")
         }

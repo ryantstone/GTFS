@@ -9,10 +9,10 @@ let package = Package(
         .library( name: "GTFS", targets: ["GTFS"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftcsv/SwiftCSV.git", from: "0.5.5")
+        .package(url: "https://github.com/yaslab/CSV.swift", from: "2.4.2")
     ],
     targets: [
-        .target( name: "GTFS", dependencies: [ "SwiftCSV" ]),
+        .target( name: "GTFS", dependencies: [ "CSV" ]),
         .testTarget( name: "GTFSTests", dependencies: ["GTFS"])
     ]
 )
