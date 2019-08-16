@@ -12,11 +12,11 @@ public struct Frequencies: Equatable, Codable, Hashable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case tripId = "trip_id"
-        case startTime = "start_time"
-        case endTime = "end_time"
+        case tripId         = "trip_id"
+        case startTime      = "start_time"
+        case endTime        = "end_time"
         case headwaySeconds = "headway_secs"
-        case exactTimes = "exact_times"
+        case exactTimes     = "exact_times"
     }
 }
 
@@ -24,9 +24,9 @@ extension Frequencies {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.tripId         = try container.decode(String.self, forKey: .tripId)
-        self.startTime      = try container.decode(String.self, forKey: .startTime)
-        self.endTime        = try container.decode(String.self, forKey: .endTime)
+        self.tripId    = try container.decode(String.self, forKey: .tripId)
+        self.startTime = try container.decode(String.self, forKey: .startTime)
+        self.endTime   = try container.decode(String.self, forKey: .endTime)
 
         guard
             let headwaySeconds =  { try? container.decode(String.self, forKey: .headwaySeconds) }().flatMap(Double.init) else {
