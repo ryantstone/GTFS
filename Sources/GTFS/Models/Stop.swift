@@ -91,42 +91,21 @@ extension Stop {
         let levelId = try? keys.decode(String.self, forKey: .levelId)
         self.levelId        = (levelId?.isEmpty ?? true) ? nil : levelId
 
-        let latitudeResult = Result<String, Error> { try keys.decode(String.self, forKey: .latitude) }
-        switch latitudeResult {
-        case .success(let latitude):
-            self.latitude = Double(latitude)
-        case .failure(_):
-            self.latitude = nil
-        }
-
-        let longitudeResult = Result<String, Error> { try keys.decode(String.self, forKey: .longitude) }
-        switch longitudeResult {
-        case .success(let longitude):
-            self.longitude = Double(longitude)
-        case .failure(_):
-            self.longitude = nil
-        }
-
-        let urlResult = Result<String, Error> { try keys.decode(String.self, forKey: .url) }
-        switch urlResult {
-        case .success(let url):
-            self.url = URL(string: url)
-        case .failure(_):
-            self.url = nil
-        }
-
-        if let locationType = try? keys.decode(String.self, forKey: .locationType),
-            let locationInt = Int(locationType) {
-            self.locationType = LocationType(rawValue: locationInt)
-        } else {
-            self.locationType = nil
-        }
+        self.latitude = { try? keys.decode(String.self, forKey: .latitude) }()
+            .flatMap(Double.init)
         
-        if let wheelchairText = try? keys.decode(String.self, forKey: .wheelchairBoarding),
-            let wheelchairBoarding = Int(wheelchairText) {
-            self.wheelchairBoarding = WheelchairBoarding(rawValue: wheelchairBoarding)
-        } else {
-            self.wheelchairBoarding = nil
-        }
+        self.longitude = { try? keys.decode(String.self, forKey: .longitude) }()
+            .flatMap(Double.init)
+
+        self.url = { try? keys.decode(String.self, forKey: .url) }()
+            .flatMap(URL.init)
+
+        self.locationType = { try? keys.decode(String.self, forKey: .locationType) }()
+            .flatMap(Int.init)
+            .flatMap(LocationType.init)
+
+        self.wheelchairBoarding = { try? keys.decode(String.self, forKey: .wheelchairBoarding) }()
+            .flatMap(Int.init)
+            .flatMap(WheelchairBoarding.init)
     }
 }

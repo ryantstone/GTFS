@@ -54,13 +54,8 @@ extension Agency {
         self.language = try? container.decode(String.self, forKey: .language)
         self.phone = try? container.decode(String.self, forKey: .phone)
         
-        if let fareUrlText = try? container.decode(String.self, forKey: .fareUrl),
-            let url = URL(string: fareUrlText) {
-            
-            self.fareUrl = url
-        } else {
-            self.fareUrl = nil
-        }
+        self.fareUrl = { try? container.decode(String.self, forKey: .fareUrl) }()
+            .flatMap(URL.init)
         
         self.email = try? container.decode(String.self, forKey: .email)
     }

@@ -54,11 +54,7 @@ extension Shape {
         }
         self.sequence = sequence
         
-        if let distanceText = try? container.decode(String.self, forKey: .distanceTraveled),
-            let distance = Double(distanceText) {
-            self.distanceTraveled = distance
-        } else {
-            self.distanceTraveled = nil
-        }
+        self.distanceTraveled = { try? container.decode(String.self, forKey: .distanceTraveled) }()
+            .flatMap(Double.init)
     }
 }

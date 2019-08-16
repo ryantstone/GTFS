@@ -84,34 +84,20 @@ extension StopTime {
         }
         self.stopSequence = stopSequenceInt
 
-        if let pickupTypeText = try? container.decode(String.self, forKey: .pickupType),
-           let pickupTypeInt  = Int(pickupTypeText) {
-            self.pickupType = Boarding(rawValue: pickupTypeInt)
-        } else {
-            self.pickupType = nil
-        }
+        self.pickupType = { try? container.decode(String.self, forKey: .pickupType) }()
+            .flatMap(Int.init)
+            .flatMap(Boarding.init)
         
-        if let dropOffTypeText = try? container.decode(String.self, forKey: .dropOffType),
-           let dropOffTypeInt  = Int(dropOffTypeText) {
-            self.dropOffType = Boarding(rawValue: dropOffTypeInt)
-        } else {
-            self.dropOffType = nil
-        }
+        self.dropOffType = { try? container.decode(String.self, forKey: .dropOffType) }()
+            .flatMap(Int.init)
+            .flatMap(Boarding.init)
         
-        if let shapeDistanceText = try? container.decode(String.self, forKey: .shapeDistTraveled),
-           let shapeDistanceDouble = Double(shapeDistanceText) {
-            self.shapeDistTraveled = shapeDistanceDouble
-        } else {
-            self.shapeDistTraveled = nil
-        }
-        
-        if let timePointText = try? container.decode(String.self, forKey: .timepoint),
-           let timePointInt = Int(timePointText),
-            let timePoint = Timepoint(rawValue: timePointInt) {
-            self.timepoint = timePoint
-        } else {
-            self.timepoint = nil
-        }
+        self.shapeDistTraveled = { try? container.decode(String.self, forKey: .shapeDistTraveled) }()
+            .flatMap(Double.init)
+
+        self.timepoint = { try? container.decode(String.self, forKey: .timepoint) }()
+            .flatMap(Int.init)
+            .flatMap(Timepoint.init)
     }
 }
 
