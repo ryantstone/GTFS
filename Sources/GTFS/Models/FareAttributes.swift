@@ -1,12 +1,12 @@
 import Foundation
 
-public enum PaymentMethod: Int, Codable {
+public enum PaymentMethod: Int, Codable, Hashable {
     case payOnBoard = 0,
          payBeforeBoard
 
 }
 
-public enum TransferType: Int, Codable {
+public enum TransferType: Int, Codable, Hashable {
     case noTransfer = 0,
         oneTransfer,
         twoTransfers,

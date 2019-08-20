@@ -15,7 +15,7 @@ class FrequenciesTests: XCTestCase {
             startTime: "05:30:00",
             endTime: "06:30:00",
             headwaySeconds: 300,
-            exactTimes: nil
+            exactTimes: .frequency
         )
 
         do {

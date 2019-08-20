@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ExceptionType: Int, Codable {
+public enum ExceptionType: Int, Codable, Hashable {
     case added = 1
     case removed = 2
 }

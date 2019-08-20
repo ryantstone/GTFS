@@ -33,7 +33,9 @@ public struct GTFSCalendar: Encodable, Equatable, Hashable {
     public let sunday: Bool
     public let startDate: Date
     public let endDate: Date
-    
+
+    public var calendarDates = Set<CalendarDate>()
+
     public enum CodingKeys: String, CodingKey {
         case serviceId = "service_id"
         case monday
@@ -46,6 +48,10 @@ public struct GTFSCalendar: Encodable, Equatable, Hashable {
         case startDate = "start_date"
         case endDate = "end_date"
         
+    }
+    
+    mutating public func appendCalendarDate(_ calendarDates: Set<CalendarDate>) {
+        calendarDates.forEach { self.calendarDates.insert($0) }
     }
 }
 

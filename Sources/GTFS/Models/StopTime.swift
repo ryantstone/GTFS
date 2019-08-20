@@ -46,6 +46,9 @@ public struct StopTime: Codable, Equatable, Hashable {
     public let shapeDistTraveled: Double?
     public let timepoint: Timepoint?
     
+    public var trip: Trip? = nil
+    public var stop: Stop? = nil
+    
     public enum CodingKeys: String, CodingKey {
         case tripId = "trip_id"
         case arrivalTime = "arrival_time"
