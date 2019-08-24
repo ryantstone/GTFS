@@ -45,6 +45,8 @@ public struct Route: Codable, Equatable, Hashable {
     public let textColor: String?
     public let sortOrder: Int?
     
+    public var trips: Set<Trip>?
+    
     public enum CodingKeys: String, CodingKey {
             case id = "route_id"
             case agencyId = "agency_id"

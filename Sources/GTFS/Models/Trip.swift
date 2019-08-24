@@ -48,6 +48,7 @@ public struct Trip: Codable, Hashable {
     public var stopTimes = Set<StopTime>()
     public var calendar: GTFSCalendar?
     public var shapes = [Shape]()
+    public var frequencies = Set<Frequencies>()
     // implement frequency
     // implement service
     // implement shape
@@ -79,29 +80,16 @@ extension Trip {
         self.blockId    = try? container.decode(String.self, forKey: .blockId)
         self.shapeId    = try? container.decode(String.self, forKey: .shapeId)
 
-       if let directionText = try? container.decode(String.self, forKey: .direction),
-          let directionInt = Int(directionText),
-          let direction = Direction(rawValue: directionInt) {
-            self.direction = direction
-        } else {
-            self.direction = nil
-        }
+        self.direction = { try? container.decode(String.self, forKey: .direction) }()
+            .flatMap(Int.init)
+            .flatMap(Direction.init)
         
+        self.wheelchairAccessible = { try? container.decode(String.self, forKey: .wheelchairAccessible) }()
+            .flatMap(Int.init)
+            .flatMap(WheelchairBoarding.init)
 
-        if let wheelchairText = try? container.decode(String.self, forKey: .wheelchairAccessible),
-            let wheelchairInt = Int(wheelchairText),
-            let wheelchair = WheelchairBoarding(rawValue: wheelchairInt) {
-            self.wheelchairAccessible = wheelchair
-        } else {
-            self.wheelchairAccessible = nil
-        }
-        
-        if let bikesAllowedText = try? container.decode(String.self, forKey: .bikesAllowed),
-            let bikesAllowedInt = Int(bikesAllowedText),
-            let bikesAllowed = BikesAllowed(rawValue: bikesAllowedInt) {
-            self.bikesAllowed = bikesAllowed
-        } else {
-            self.bikesAllowed = nil
-        }
+        self.bikesAllowed = { try? container.decode(String.self, forKey: .bikesAllowed) }()
+            .flatMap(Int.init)
+            .flatMap(BikesAllowed.init)
     }
 }

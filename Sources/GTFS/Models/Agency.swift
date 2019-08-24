@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Agency: Codable, Equatable {
+public struct Agency: Codable, Equatable, Hashable {
     
     public let id: String?
     public let name: String
@@ -17,6 +17,8 @@ public struct Agency: Codable, Equatable {
     public let phone: String?
     public let email: String?
     public let fareUrl: URL?
+    
+    public var routes = Set<Route>()
 
     public enum CodingKeys: String, CodingKey {
         case id = "agency_id"
