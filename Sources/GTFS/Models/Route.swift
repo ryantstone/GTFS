@@ -20,20 +20,6 @@ public enum RouteType: Int, Codable, Equatable {
     }
 
 public struct Route: Codable, Equatable, Hashable {
-    public init(id: String, agencyId: String?, shortName: String, longName: String, description: String?, type: RouteType, url: URL?, color: String?, textColor: String?, sortOrder: Int?) {
-        self.id = id
-        self.agencyId = agencyId
-        self.shortName = shortName
-        self.longName = longName
-        self.description = description
-        self.type = type
-        self.url = url
-        self.color = color
-        self.textColor = textColor
-        self.sortOrder = sortOrder
-    }
-    
-    
     public let id: String
     public let agencyId: String?
     public let shortName: String?
@@ -45,7 +31,9 @@ public struct Route: Codable, Equatable, Hashable {
     public let textColor: String?
     public let sortOrder: Int?
     
-    public var trips: Set<Trip>?
+    public var trips = Set<Trip>()
+    public var fareRules = Set<FareRules>()
+    public var agency: Agency? = nil
     
     public enum CodingKeys: String, CodingKey {
             case id = "route_id"

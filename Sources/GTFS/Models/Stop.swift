@@ -22,24 +22,7 @@ public enum LocationType: Int, Codable, Equatable {
    }
 
 public struct Stop: Codable, Equatable, Hashable {
-    public init(id: String, code: String?, name: String, description: String?, latitude: Double, longitude: Double, zoneId: String?, url: URL?, locationType: LocationType?, parentStation: String?, stopTimezone: String?, wheelchairBoarding: WheelchairBoarding?, levelId: String?, platformCode: String?) {
-        self.id = id
-        self.code = code
-        self.name = name
-        self.description = description
-        self.latitude = latitude
-        self.longitude = longitude
-        self.zoneId = zoneId
-        self.url = url
-        self.locationType = locationType
-        self.parentStation = parentStation
-        self.stopTimezone = stopTimezone
-        self.wheelchairBoarding = wheelchairBoarding
-        self.levelId = levelId
-        self.platformCode = platformCode
-    }
-    
-    
+
     public let id: String
     public let code: String?
     public let name: String

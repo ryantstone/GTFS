@@ -7,6 +7,8 @@ public struct Frequencies: Equatable, Codable, Hashable {
     public let headwaySeconds: Double
     public let exactTimes: TripType?
 
+    weak public var trip: Trip? = nil
+    
     public enum TripType: Int, Equatable, Hashable, Codable {
         case frequency, scheduled
     }
@@ -20,24 +22,14 @@ public struct Frequencies: Equatable, Codable, Hashable {
     }
 }
 
-extension Frequencies {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.tripId    = try container.decode(String.self, forKey: .tripId)
-        self.startTime = try container.decode(String.self, forKey: .startTime)
-        self.endTime   = try container.decode(String.self, forKey: .endTime)
-
-        guard
-            let headwaySeconds =  { try? container.decode(String.self, forKey: .headwaySeconds) }().flatMap(Double.init) else {
-                throw DecodingError.typeMismatch(Double.self,
-                    DecodingError.Context(codingPath: [CodingKeys.headwaySeconds],
-                                          debugDescription: "Failed to convert headway seconds"))
-        }
-        self.headwaySeconds = headwaySeconds
-      
-        self.exactTimes = { try? container.decode(String.self, forKey: .exactTimes) }()
-            .flatMap(Int.init)
-            .flatMap(TripType.init)
-    }
-}
+//extension Frequencies {
+//    public init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        self.tripId         = try container.decode(String.self, forKey: .tripId)
+//        self.startTime      = try container.decode(String.self, forKey: .startTime)
+//        self.endTime        = try container.decode(String.self, forKey: .endTime)
+//        self.headwaySeconds = try container.decode(Double.self, forKey: .headwaySeconds)
+//        self.exactTimes     = try container.decode(TripType.self, forKey: .exactTimes)
+//    }
+//}

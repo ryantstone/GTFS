@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct FareRules: Equatable, Codable {
+public struct FareRules: Equatable, Codable, Hashable {
     public let fareId: String
     public let routeId: String?
     public let originId: String?
     public let destinationId: String?
     public let containsId: String?
+    
+    public var fareRules = Set<FareRules>()
 
     private enum CodingKeys: String, CodingKey {
         case fareId = "fare_id"

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PathwayMode: Int {
+public enum PathwayMode: Int, Codable {
     case walkway = 0,
         stairs,
         movingSidewalk,
@@ -10,7 +10,7 @@ public enum PathwayMode: Int {
         exitGate
 }
 
-public struct Pathways {
+public struct Pathways: Codable, Equatable {
     public let pathwayId: String
     public let fromStopId: String
     public let toStopId: String
@@ -60,7 +60,7 @@ extension Pathways {
         }
 
         //pathway mode
-        if let bidirectional = { try? container.decode(String.self, forKey: .isBidirectional) }().flatMap(Bool.init) {
+        if let bidirectional = { try? container.decode(String.self, forKey: .isBidirectional) }().flatMap({ $0 == "1" }) {
             self.isBidirectional = bidirectional
         } else {
             throw DecodingError.typeMismatch(Bool.self, DecodingError.Context.init(codingPath: [CodingKeys.isBidirectional], debugDescription: "Failed to convert type to Bool"))

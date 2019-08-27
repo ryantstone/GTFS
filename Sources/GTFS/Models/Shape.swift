@@ -7,6 +7,8 @@ public struct Shape: Codable, Equatable, Hashable {
     public let sequence: Int
     public let distanceTraveled: Double?
     
+    public var trip: Trip? = nil
+    
     enum CodingKeys: String, CodingKey {
         case shapeId = "shape_id"
         case lat = "shape_pt_lat"

@@ -12,29 +12,15 @@ public enum Timepoint: Int, Codable {
     case exact
 }
 
+public enum Boarding: Int, Codable {
+    case scheduled = 0
+    case none
+    case phoneAgency
+    case coordinateWithDriver
+}
+
 public struct StopTime: Codable, Equatable, Hashable {
-    
-    public init(tripId: String, arrivalTime: String?, departureTime: String?, stopId: String, stopSequence: Int, stopHeadsign: String?, pickupType: StopTime.Boarding?, dropOffType: StopTime.Boarding?, shapeDistTraveled: Double?, timepoint: Timepoint?) {
-        self.tripId = tripId
-        self.arrivalTime = arrivalTime
-        self.departureTime = departureTime
-        self.stopId = stopId
-        self.stopSequence = stopSequence
-        self.stopHeadsign = stopHeadsign
-        self.pickupType = pickupType
-        self.dropOffType = dropOffType
-        self.shapeDistTraveled = shapeDistTraveled
-        self.timepoint = timepoint
-    }
-    
-    
-    public enum Boarding: Int, Codable {
-        case scheduled = 0
-        case none
-        case phoneAgency
-        case coordinateWithDriver
-    }
-    
+
     public let tripId: String
     public let arrivalTime: String?
     public let departureTime: String?
@@ -45,8 +31,9 @@ public struct StopTime: Codable, Equatable, Hashable {
     public let dropOffType: Boarding?
     public let shapeDistTraveled: Double?
     public let timepoint: Timepoint?
-    
-    public var trip: Trip? = nil
+
+    weak public var trip: Trip? = nil
+    public var transfer: Transfer? = nil
     public var stop: Stop? = nil
     
     public enum CodingKeys: String, CodingKey {

@@ -6,7 +6,7 @@ public enum PaymentMethod: Int, Codable, Hashable {
 
 }
 
-public enum TransferType: Int, Codable, Hashable {
+public enum TransferType: Int, Codable, Hashable, Equatable {
     case noTransfer = 0,
         oneTransfer,
         twoTransfers,
@@ -21,6 +21,8 @@ public struct FareAttributes: Codable, Hashable, Equatable {
     public let transfers: TransferType
     public let agencyId: String?
     public let transferDuration: Int?
+    
+    public var fareRules = Set<FareRules>()
 
     fileprivate enum CodingKeys: String, CodingKey {
         case
@@ -41,38 +43,10 @@ extension FareAttributes {
         self.fareId             = try container.decode(String.self, forKey: .fareId)
         self.currencyType       = try container.decode(String.self, forKey: .currencyType)
         self.agencyId           = try? container.decode(String.self, forKey: .agencyId)
-        self.transferDuration   = { try? container.decode(String.self, forKey: .transferDuration) }().flatMap(Int.init)
+        self.transferDuration   = try container.decode(Int.self, forKey: .transferDuration)
+        self.price              = try container.decode(Double.self, forKey: .price)
+        self.paymentMethod      = try container.decode(PaymentMethod.self, forKey: .paymentMethod)
+        self.transfers          = try container.decode(TransferType.self, forKey: .transfers)
 
-        guard let price = { try? container.decode(String.self, forKey: .price) }().flatMap(Double.init) else {
-            throw DecodingError.typeMismatch(
-                Double.self,
-                DecodingError.Context.init(codingPath: [CodingKeys.price],
-                                           debugDescription: "Failed to convert type to price"))
-
-        }
-        self.price = price
-
-        guard let paymentMethod = { try? container.decode(String.self, forKey: .paymentMethod) }()
-            .flatMap(Int.init)
-            .flatMap(PaymentMethod.init) else {
-
-                throw DecodingError.typeMismatch(
-                    PaymentMethod.self,
-                    DecodingError.Context.init(codingPath: [CodingKeys.paymentMethod],
-                                               debugDescription: "Failed to convert type to payment method"))
-        }
-        self.paymentMethod = paymentMethod
-
-        guard let transfers = { try? container.decode(String.self, forKey: .transfers) }()
-            .flatMap(Int.init)
-            .flatMap(TransferType.init) else {
-
-                throw DecodingError.typeMismatch(
-                    TransferType.self,
-                    DecodingError.Context.init(codingPath: [CodingKeys.transfers],
-                                               debugDescription: "Failed to convert type to transfers"))
-        }
-
-        self.transfers = transfers
     }
 }

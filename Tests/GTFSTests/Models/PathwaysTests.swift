@@ -9,10 +9,28 @@ class PathwaysTests_PathwaysTests: XCTestCase {
     override func tearDown() {
     }
 
-    func testExample() {
-        let result = Parser().decodeFile(data: PathwaysMocks.CSV, type: PathWays.self)
+    func test_parser() {
 
-        let expectedResult = Pathways(pathwayId: "E1N1", fromStopId: "E1", toStopId: <#T##String#>, pathwayMode: <#T##PathwayMode#>, isBidirectional: <#T##Bool#>, length: <#T##Double?#>, traversalTime: <#T##Int?#>, stairCount: <#T##Int?#>, maxSlope: <#T##Double?#>, minWidth: <#T##Double?#>, signpostedAs: <#T##String?#>, reverseSignpostedAs: <#T##String?#>)
+        let expectedResult = Pathways(pathwayId: "E1N1",
+                                      fromStopId: "E1",
+                                      toStopId: "N1",
+                                      pathwayMode: .movingSidewalk,
+                                      isBidirectional: true,
+                                      length: nil,
+                                      traversalTime: nil,
+                                      stairCount: nil,
+                                      maxSlope: nil,
+                                      minWidth: nil,
+                                      signpostedAs: nil,
+                                      reverseSignpostedAs: nil)
+
+        do {
+            let result = try Parser().decodeFile(data: PathwaysMocks.CSV,
+                                                 type: Pathways.self)
+            XCTAssertEqual(expectedResult, result.first)
+        } catch {
+            XCTFail("\(error.localizedDescription)")
+        }
     }
 }
 
