@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct Agency: Codable {
+public struct Agency: Codable, Equatable, Hashable {
     
-    public let id: String
+    public let id: String?
     public let name: String
     public let url: URL
     public let timezone: String
@@ -17,6 +17,8 @@ public struct Agency: Codable {
     public let phone: String?
     public let email: String?
     public let fareUrl: URL?
+    
+    public var routes = Set<Route>()
 
     public enum CodingKeys: String, CodingKey {
         case id = "agency_id"
@@ -39,5 +41,24 @@ public struct Agency: Codable {
             self.email = email
             self.fareUrl = fareUrl
     }
+}
+
+extension Agency {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        self.id = try? container.decode(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        let urlText = try container.decode(String.self, forKey:  .url)
+        self.url = URL(string: urlText)!
+        
+        self.timezone = try container.decode(String.self, forKey: .timezone)
+        self.language = try? container.decode(String.self, forKey: .language)
+        self.phone = try? container.decode(String.self, forKey: .phone)
+        
+        self.fareUrl = { try? container.decode(String.self, forKey: .fareUrl) }()
+            .flatMap(URL.init)
+        
+        self.email = try? container.decode(String.self, forKey: .email)
+    }
 }

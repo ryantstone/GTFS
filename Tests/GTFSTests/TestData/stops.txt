@@ -1,0 +1,67 @@
+stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url
+1,MAN,Mangonia Park Station,45th Street and North Shore Drive,26.758744,-80.076933,1,http://www.tri-rail.com/stations/mangonia-park-station/
+2,WPB,West Palm Beach Station,S Tamarind Ave South of Banyan,26.713297,-80.062433,1,http://www.tri-rail.com/stations/west-palm-beach-station/
+3,LAK,Lake Worth Station,Lake Worth Road Just West of I-95,26.616142,-80.069133,1,http://www.tri-rail.com/stations/lake-worth-station
+4,BOY,Boynton Beach Station,High Ridge Road North of Gateway Blvd,26.553783,-80.070597,2,http://www.tri-rail.com/stations/boynton-beach-station
+5,DEL,Delray Beach Station,Behind PBC Administrative Complex,26.454242,-80.090967,2,http://www.tri-rail.com/stations/delray-beach-station
+6,BOC,Boca Raton Station,Yamato Road,26.3927,-80.099033,3,http://www.tri-rail.com/stations/boca-raton-station
+7,DFB,Deerfield Beach Station,Hillsboro Blvd Next to the Courthouse,26.317011,-80.122353,3,http://www.tri-rail.com/stations/deerfield-beach-station
+8,POM,Pompano Beach Station,Between NW 33rd Street and Sample Road,26.272286,-80.134814,3,http://www.tri-rail.com/stations/pompano-beach-station
+9,CYP,Cypress Creek Station,Behind Broward Trade Center,26.201194,-80.150369,4,http://www.tri-rail.com/stations/cypress-creek-station
+10,FTL,Fort Lauderdale Broward Station,200 Southwest 21st Terrace 33312,26.119942,-80.169808,4,http://www.tri-rail.com/stations/fort-lauderdale-station
+11,FLA,Fort Lauderdale Airport Station,South of Griffin Road in Dania Beach,26.061653,-80.165683,5,http://www.tri-rail.com/stations/fort-lauderdalehollywood-international-airport-at-dania-beach/
+12,SHE,Sheridan Street Station,Park and Ride,26.032217,-80.168086,5,http://www.tri-rail.com/stations/sheridan-street-station
+13,HOL,Hollywood Station,Hollywood Blvd Just West of I-95,26.012411,-80.167658,5,http://www.tri-rail.com/stations/hollywood-station
+14,GOL,Golden Glades Station,Park and Ride,25.92155,-80.216917,6,http://www.tri-rail.com/stations/golden-glades-station
+15,OPA,Opa-locka Station,Ali Baba  Avenue,25.900036,-80.252694,6,http://www.tri-rail.com/stations/opa-locka-station
+16,MET,MetroRail Transfer Station,Transfer to Metrorail,25.846394,-80.259617,6,http://www.tri-rail.com/stations/metrorail-transfer-station
+17,HIA,Hialeah Market Station,1200 Southeast 11th Avenue 33010,25.811239,-80.258703,6,http://www.tri-rail.com/stations/hialeah-market-station/
+18,MIA,Miami Airport Station,3861 Northwest 21st Street Miami 33142,25.795941,-80.258335,6,http://www.tri-rail.com/stations/miami-airport-station/
+19,19,Lynn Uni & Mil Trl,,26.3846035004,-80.1212387085,,http://www.tri-rail.com
+20,20,Town Center Mall,,26.3649845123,-80.1289672852,,http://www.tri-rail.com
+21,21,Fairway Drive Turnaround,,26.3262634277,-80.1148986816,,http://www.tri-rail.com
+22,22,Hillsboro Blvd & NW 3rd Ave,,26.3185596466,-80.1078796387,,http://www.tri-rail.com
+23,23,Hillsboro Blvd & Federal Hwy,,26.3180999756,-80.0908203125,,http://www.tri-rail.com
+24,24,Camino Real Transfer Location,,26.3407211304,-80.0885314941,,http://www.tri-rail.com
+25,25,Palm Beach Airport,,26.6884708405,-80.090133667,,http://www.tri-rail.com
+26,26,Congress Ave & 10th Ave N,,26.6285610199,-80.0887069702,,http://www.tri-rail.com
+27,27,School District,,26.6497077942,-80.0937347412,,http://www.tri-rail.com
+28,28,PB County school,,26.6653118134,-80.0946807861,,http://www.tri-rail.com
+29,29,PBC Criminal Justice Complex,,26.6712493896,-80.0936355591,,http://www.tri-rail.com
+30,30,12th Avenue Loop Jim Moran Blvd,,26.3264293671,-80.1189422607,,http://www.tri-rail.com
+31,31,Newport Center Drive South,,26.2981739044,-80.1252975464,,http://www.tri-rail.com
+32,32,FAU Research Blvd and Peoples Trust Way SW 15th St,,26.2975654602,-80.1197357178,,http://www.tri-rail.com
+33,33,Family Cntr NW 48th St. and NW 3rd Av. NW 2nd Ave,,26.2897205353,-80.126701355,,http://www.tri-rail.com
+34,34,Military Trail and SW 10th St.,,26.3043823242,-80.129447937,,http://www.tri-rail.com
+35,35,Powerline Road and Copans Road,,26.2602577209,-80.1518936157,,http://www.tri-rail.com
+36,36,NW 25th Ave and NW 19th St,,26.2541332245,-80.1595153809,,http://www.tri-rail.com
+37,37,Park Central Blvd,,26.26420784,-80.1466674805,,http://www.tri-rail.com
+38,38,Dixie Highway and NE 56th St,,26.1962871552,-80.1324539185,,http://www.tri-rail.com
+39,39,Dixie Highway and Commercial Blvd,,26.1889190674,-80.1337127686,,http://www.tri-rail.com
+40,40,Commercial Blvd & Federal Hwy,,26.1896286011,-80.1148757935,,http://www.tri-rail.com
+41,41,Broward Health Imperial Point Medical Center,,26.2068195343,-80.1100387573,,http://www.tri-rail.com
+42,42,Cypress Creek Boulevard and Powerline Road,,26.2031898499,-80.1557693481,,http://www.tri-rail.com
+43,43,Cypress Creek Road and NW 31st Ave,,26.2024211884,-80.1878738403,,http://www.tri-rail.com
+44,44,Florida Department of Transportation District office,,26.1855621338,-80.1936645508,,http://www.tri-rail.com
+45,45,Commercial Blvd & Powerline Rd,,26.1884403229,-80.1552581787,,http://www.tri-rail.com
+46,46,Andrews Ave & Race Track Rd,,26.2265434265,-80.1390762329,,http://www.tri-rail.com
+47,47,Powerline Rd & Gateway Drive,,26.2130794525,-80.1561355591,,http://www.tri-rail.com
+48,48,Mc Nab Road and SW 36th Ave,,26.2099552155,-80.171836853,,http://www.tri-rail.com
+49,49,Powerline Rd and Mc Nab Rd,,26.2108230591,-80.1559906006,,http://www.tri-rail.com
+50,50,Broward Blvd and SE 3rd Ave,,26.1223430634,-80.1405563354,,http://www.tri-rail.com
+51,51,Broward County Judicial Complex,,26.1148204803,-80.1411895752,,http://www.tri-rail.com
+52,52,Andrews Ave & Las Olas Blvd,,26.1200752258,-80.1432952881,,http://www.tri-rail.com
+53,53,Broward Central Terminal Transfer location,,26.1235752106,-80.144744873,,http://www.tri-rail.com
+54,54,State Road 84 Marina Boulevard and SW,,26.0926589966,-80.1467819214,,http://www.tri-rail.com
+55,55,SW17th Street and Andrews Ave,,26.1006736755,-80.1421051025,,http://www.tri-rail.com
+56,56,The Art institute of Ft. Lauderdale,,26.100812912,-80.123588562,,http://www.tri-rail.com
+57,57,SW 2nd St. and SW 5th Av Museum of Science,,26.1204624176,-80.1485290527,,http://www.tri-rail.com
+58,58,Las Olas Boulevard and SE 8th Avenue Transfer location,,26.1192436218,-80.1354293823,,http://www.tri-rail.com
+59,59,SE 3rd Av and Davie Blvd transfer location,,26.1076030731,-80.1400985718,,http://www.tri-rail.com
+60,60,Broward Medical Center Andrews Av,,26.1022624969,-80.1423721313,,http://www.tri-rail.com
+61,61,Terminal 1 bus stop exit,,26.0723571777,-80.1403579712,,http://www.tri-rail.com
+62,62,Terminal 2 and 3 bus stop exit,,26.0723285675,-80.1447677612,,http://www.tri-rail.com
+63,63,Terminal 3 and 4 bus stop exit,,26.0704555511,-80.1448135376,,http://www.tri-rail.com
+64,64,SW 42nd Street and Anglers Avenue,,26.0699558258,-80.1686935425,,http://www.tri-rail.com
+65,65,N 29th Ave and Sterling Rd,,26.0479259491,-80.1660766602,,http://www.tri-rail.com
+66,66,Stirling Road and Park Road,,26.0476264954,-80.1764144897,,http://www.tri-rail.com
